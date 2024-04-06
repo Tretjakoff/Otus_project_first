@@ -11,31 +11,31 @@ import pages.MainPage;
 @ExtendWith(UIExtension.class)
 public class OtusMain_Test {
 
-    @Inject
-    private MainPage mainPage;
+  @Inject
+  private MainPage mainPage;
 
-    @Inject
-    private BlockHeader blockHeader;
+  @Inject
+  private BlockHeader blockHeader;
 
-    @Inject
-    private BlockEducation blockEducation;
+  @Inject
+  private BlockEducation blockEducation;
 
-    @Test
-    public void categoryFromEducation() {
+  @Test
+  public void categoryFromEducation() {
 
-        mainPage
-                .open();
+    mainPage
+        .open();
 
-        blockHeader
-                .clickSectionByName("Обучение");
+    blockHeader
+        .clickSectionByName("Обучение");
 
-        String name = blockEducation
-                .setTitle("Все курсы")
-                .getRandomCategoryName();
-        blockEducation
-                .setTitle("Все курсы")
-                .clickRandomCategory(name)
-                .directionIsSelected(name);
+    String name = blockEducation
+        .setTitle("Все курсы")
+        .getRandomCategoryName();
+    blockEducation
+        .setTitle("Все курсы")
+        .clickRandomCategory(name)
+        .directionIsSelected(name);
 
-    }
+  }
 }
