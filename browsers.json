@@ -1,0 +1,11 @@
+{
+	"chrome": {
+		"default": "123.0",
+		"versions": {
+			"123.0": {
+				"image": "selenoid/chrome:123.0",
+				"port": "4444"
+			}
+		}
+	}
+}
