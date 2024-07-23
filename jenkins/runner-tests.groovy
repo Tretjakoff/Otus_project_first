@@ -12,20 +12,20 @@ timeout(60) {
 
             stage("Run tests ${jobDescription}") {
             sh "docker run --rm --network=host --name $testContainerName - v $pwd/allure-results:/hhome/ubuntu/target/allure-results - t ui-tests"
-            }
+}
 
-            stage("Publish allure results") {
-            allure([
-                    disabled: true,
-                    includeProperties: false,
-                    jdk: '',
-                    properties: [],
-                    reportBuildPolicy: 'ALWAYS',
-                    results: ["$pwd/allure-results"]
-            ])
-        }
-    } finally {
-        sh "docker stop $testContainerName"
-        }
-    }
+stage("Publish allure results") {
+    allure([
+            disabled: true,
+            includeProperties: false,
+            jdk: '',
+            properties: [],
+            reportBuildPolicy: 'ALWAYS',
+            results: ["$pwd/allure-results"]
+    ])
+}
+} finally {
+    sh "docker stop $testContainerName"
+}
+}
 }
