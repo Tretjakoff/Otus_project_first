@@ -5,6 +5,9 @@ timeout(60) {
             wrap([$class: 'BuildUser']) {
                 currentBuild.description = "User: $BUILD_USER"
             }
+            stage("Check PATH") {
+                sh 'echo $PATH'
+            }
 
             stage("Run tests ${jobDescription}") {
             sh """
