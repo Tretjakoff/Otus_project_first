@@ -8,12 +8,12 @@ timeout(60) {
 
             stage("Run tests ${jobDescription}") {
             sh """
-                    docker run --rm --network=host 
-                    -e BROWSER_NAME=$BROWSER_NAME 
-                    -e SELENOID_URL=http://localhost:8090/wd/hub 
-                    --name $testContainerName - v $pwd/allure-results:/home/ubuntu/target/allure-results 
-                    -t ui_tests
-                    """
+                docker run -privileged --rm --network=host \
+                -e BROWSER_NAME=$BROWSER_NAME \
+                -e SELENOID_URL=http://localhost:8090/wd/hub \
+                --name $testContainerName - v $pwd/allure-results:/home/ubuntu/target/allure-results \
+                -t ui_tests
+            """
             }
 
             stage("Publish allure results") {
