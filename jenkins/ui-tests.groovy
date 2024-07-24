@@ -11,8 +11,12 @@ timeout(60) {
                 docker run -privileged --rm --network=host \
                 -e BROWSER_NAME=$BROWSER_NAME \
                 -e SELENOID_URL=http://localhost:8090/wd/hub \
-                --name $testContainerName - v $pwd/allure-results:/home/ubuntu/target/allure-results \
-                -t ui_tests
+                --name $testContainerName \
+                -v $pwd/allure-results:/home/ubuntu/target/allure-results \
+                -v $pwd:/home/ubuntu/project \
+                -w /home/ubuntu/project \
+                -t ui_tests \
+                mvn clean test
             """
             }
 
