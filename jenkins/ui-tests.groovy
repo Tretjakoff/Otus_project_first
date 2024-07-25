@@ -17,6 +17,7 @@ timeout(60) {
                 --name $testContainerName \
                 -v $pwd/allure-results:/home/ubuntu/target/allure-results \
                 -v $pwd:/home/ubuntu/project \
+                -v /var/run/docker.sock:/var/run/docker.sock \\
                 -w /home/ubuntu/project \
                 -t ui_tests \
                 mvn clean test
