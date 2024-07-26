@@ -11,15 +11,6 @@ timeout(60) {
 
             stage("Run tests ${jobDescription}") {
             sh """
-                docker run -privileged --rm --network=host \
-                -e BROWSER_NAME=$BROWSER_NAME \
-                -e SELENOID_URL=http://localhost:8090/wd/hub \
-                --name $testContainerName \
-                -v $pwd/allure-results:/home/ubuntu/target/allure-results \
-                -v $pwd:/home/ubuntu/project \
-                -v /var/run/docker.sock:/var/run/docker.sock \\
-                -w /home/ubuntu/project \
-                -t ui_tests \
                 mvn clean test
             """
             }
