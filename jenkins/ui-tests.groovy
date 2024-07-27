@@ -43,7 +43,7 @@ pipeline {
                 script {
                     sh '''
                         # Запуск Docker контейнера и выполнение команд внутри него
-                        CONTAINER_ID=$(docker run --privileged -d \
+                        CONTAINER_ID=$(docker run --privileged -d  --env-file \
                             -v ${MAVEN_LOCAL_REPO}:${MAVEN_LOCAL_REPO} \
                             192.168.88.193:5005/uitests:1.0 \
                             /bin/bash -c "rm -rf ${DOCKER_HOME}/allure-results/* ${DOCKER_HOME}/allure-report/* && \
