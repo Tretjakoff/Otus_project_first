@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y docker.io
 
 WORKDIR /home/ubuntu/ui-test
 
-COPY . .
+COPY jenkins .
 
 RUN apt install -y wget sudo
 RUN apt-get update && \
