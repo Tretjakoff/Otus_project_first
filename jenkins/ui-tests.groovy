@@ -43,9 +43,9 @@ pipeline {
                 script {
                     sh '''
                         # Запуск Docker контейнера и выполнение команд внутри него
-                        CONTAINER_ID=$(docker run --privileged -d  --env-file \
+                        CONTAINER_ID=$(docker run --privileged -d  --env-file .env\
                             -v ${MAVEN_LOCAL_REPO}:${MAVEN_LOCAL_REPO} \
-                            192.168.88.193:5005/uitests:1.0 \
+                            localhost:5005/maven \
                             /bin/bash -c "rm -rf ${DOCKER_HOME}/allure-results/* ${DOCKER_HOME}/allure-report/* && \
                             mvn clean test -Dmaven.repo.local=${MAVEN_LOCAL_REPO} && \
                             allure generate ${DOCKER_HOME}/allure-results --clean -o ${DOCKER_HOME}/allure-report")
