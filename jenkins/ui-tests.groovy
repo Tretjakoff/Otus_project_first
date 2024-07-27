@@ -70,36 +70,6 @@ pipeline {
             script {
                 // Генерация отчета Allure с помощью плагина Jenkins
                 allure includeProperties: false, jdk: '', reportBuildPolicy: 'ALWAYS', results: [[path: "${ALLURE_RESULTS}"]]
-
-                // Подготовка и отправка сообщения в Telegram
-                def buildStatus = currentBuild.currentResult
-                env.MESSAGE = "${env.JOB_NAME} ${buildStatus.toLowerCase()} for build #${env.BUILD_NUMBER}\n****************************************"
-                def allureReportUrl = "${env.BUILD_URL}allure"
-                try {
-                    def summaryFile = "${ALLURE_REPORT}/widgets/summary.json"
-                    if (fileExists(summaryFile)) {
-                        def summary = sh(script: "cat ${summaryFile}", returnStdout: true).trim()
-                        def jsonSlurper = new groovy.json.JsonSlurper()
-                        def summaryJson = jsonSlurper.parseText(summary)
-                        def passed = summaryJson.statistic.passed
-                        def failed = summaryJson.statistic.failed
-                        def skipped = summaryJson.statistic.skipped
-                        def total = summaryJson.statistic.total
-                        def error = total - passed - failed - skipped
-                        env.REPORT_SUMMARY = "Passed: ${passed}, Failed: ${failed}, Error: ${error} , Skipped: ${skipped}\nTotal: ${total}"
-                    } else {
-                        env.REPORT_SUMMARY = "Summary report not found: ${summaryFile}"
-                    }
-                } catch (Exception e) {
-                    env.REPORT_SUMMARY = "Failed to read Allure report: ${e.message}"
-                }
-                sh """
-                    curl -X POST -H 'Content-Type: application/json' -d '{
-                        "chat_id": "${env.CHAT_ID}",
-                        "text": "${env.MESSAGE}\\n${env.REPORT_SUMMARY}\\nAllure Report: ${allureReportUrl}",
-                        "disable_notification": false
-                    }' https://api.telegram.org/bot${env.TOKEN}/sendMessage
-                """
             }
         }
     }
