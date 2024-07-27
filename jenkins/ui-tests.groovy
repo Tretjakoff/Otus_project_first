@@ -7,8 +7,6 @@ pipeline {
         ALLURE_RESULTS = "${WORKSPACE}/allure-results"
         ALLURE_REPORT = "${WORKSPACE}/allure-report"
         BUILD_NUMBER = "${env.BUILD_NUMBER}"
-        TOKEN = credentials('token')
-        CHAT_ID = credentials('chatID')
         JOB_NAME = "${env.JOB_NAME}"
         DOCKER_HOME = "/home/ubuntu/ui-test"
     }
