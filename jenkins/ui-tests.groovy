@@ -40,12 +40,19 @@ pipeline {
         stage('Build and Test') {
             steps {
                 script {
+                    // Создание временного скрипта с командами
+                    writeFile file: 'docker_script.sh', text: """
+                        #!/bin/bash
+                        rm -rf ${DOCKER_HOME}/allure-results/* ${DOCKER_HOME}/allure-report/*
+                        mvn clean test -Dtest=RunnerTest -DbaseUrl=${BASE_URL} -DbrowserName=${BROWSER_NAME} -DbrowserVersion=${BROWSER_VERSION} -Dmaven.repo.local=${MAVEN_LOCAL_REPO}
+                        allure generate ${DOCKER_HOME}/allure-results --clean -o ${DOCKER_HOME}/allure-report
+                    """
+
+                    // Запуск Docker контейнера и выполнение временного скрипта внутри него
                     sh """
-                        # Запуск Docker контейнера и выполнение команд внутри него
-                        CONTAINER_ID=\$(docker run --privileged -d /bin/bash -c 'rm -rf ${DOCKER_HOME}/allure-results/* ${DOCKER_HOME}/allure-report/* && \
-                            mvn clean test -Dtest=RunnerTest -DbaseUrl=${BASE_URL} -DbrowserName=${BROWSER_NAME} -DbrowserVersion=${BROWSER_VERSION} -Dmaven.repo.local=${MAVEN_LOCAL_REPO} && \
-                            allure generate ${DOCKER_HOME}/allure-results --clean -o ${DOCKER_HOME}/allure-report')
-                        
+                        chmod +x docker_script.sh
+                        CONTAINER_ID=\$(docker run --privileged -d -v "\$(pwd)":${DOCKER_HOME} -w ${DOCKER_HOME} ubuntu:latest /bin/bash -c "./docker_script.sh")
+
                         # Просмотр логов выполнения тестов
                         docker logs -f \$CONTAINER_ID
 
