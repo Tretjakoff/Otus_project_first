@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y docker.io
 
 WORKDIR /home/ubuntu/ui-test
 
-COPY jenkins .
+COPY . .
 
 RUN apt install -y wget sudo
 RUN apt-get update && \
@@ -24,5 +24,4 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-RUN wget -qO- --show-progress https://github.com/allure-framework/allure2/releases/download/2.27.0/allure-2.27.0.tgz | tar -zx -C /opt/
-ENV PATH=$PATH:/opt/allure-2.27.0/bin
+ENTRYPOINT ["./entrypoint.sh"]
