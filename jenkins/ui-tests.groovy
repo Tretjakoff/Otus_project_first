@@ -32,8 +32,6 @@ pipeline {
                     env.BASE_URL = configMap['BASE_URL'] ?: ''
                     env.BROWSER_NAME = configMap['BROWSER_NAME'] ?: ''
                     env.BROWSER_VERSION = configMap['BROWSER_VERSION'] ?: ''
-                    env.REMOTE_URL = configMap['REMOTE_URL'] ?: ''
-                    env.IS_REMOTE = configMap['IS_REMOTE'] ?: ''
 
                     echo "Configuration parsed successfully: BASE_URL=${env.BASE_URL}, BROWSER_NAME=${env.BROWSER_NAME}, BROWSER_VERSION=${env.BROWSER_VERSION}, REMOTE_URL=${env.REMOTE_URL}, IS_REMOTE=${env.IS_REMOTE}"
                 }
@@ -45,7 +43,7 @@ pipeline {
                     sh """
                         # Запуск Docker контейнера и выполнение команд внутри него
                         CONTAINER_ID=\$(docker run --privileged -d /bin/bash -c 'rm -rf ${DOCKER_HOME}/allure-results/* ${DOCKER_HOME}/allure-report/* && \
-                            mvn clean test -Dtest=RunnerTest -DbaseUrl=${BASE_URL} -DbrowserName=${BROWSER_NAME} -DbrowserVersion=${BROWSER_VERSION} -DremoteUrl=${REMOTE_URL} -DisRemote=${IS_REMOTE} -Dmaven.repo.local=${MAVEN_LOCAL_REPO} && \
+                            mvn clean test -Dtest=RunnerTest -DbaseUrl=${BASE_URL} -DbrowserName=${BROWSER_NAME} -DbrowserVersion=${BROWSER_VERSION} -Dmaven.repo.local=${MAVEN_LOCAL_REPO} && \
                             allure generate ${DOCKER_HOME}/allure-results --clean -o ${DOCKER_HOME}/allure-report')
                         
                         # Просмотр логов выполнения тестов
