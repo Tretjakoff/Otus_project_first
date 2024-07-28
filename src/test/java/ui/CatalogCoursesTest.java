@@ -8,7 +8,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import pages.CatalogCoursesPage;
 
 @ExtendWith(UIExtension.class)
-public class CatalogCourses_Test {
+public class CatalogCoursesTest {
 
   @Inject
   private CatalogCoursesPage catalogCoursesPage;

@@ -9,7 +9,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import pages.MainPage;
 
 @ExtendWith(UIExtension.class)
-public class OtusMain_Test {
+public class OtusMainTest {
 
   @Inject
   private MainPage mainPage;

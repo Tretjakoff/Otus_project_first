@@ -116,6 +116,9 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${surefire.plugin.version}</version>
                 <configuration>
+                    <includes>
+                        <include>**/*Test.java</include>
+                    </includes>
                     <forkCount>${forkCount}</forkCount>
                     <reuseForks>${reuseForks}</reuseForks>
                     <parallel>${parallel}</parallel>
@@ -147,10 +150,10 @@
                             <name>listener</name>
                             <value>io.qameta.allure.junit5.AllureJunit5</value>
                         </property>
-<!--                        <property>-->
-<!--                            junit.jupiter.execution.parallel.enabled = true-->
-<!--                            junit.jupiter.execution.parallel.mode.default = concurrent-->
-<!--                        </property>-->
+                        <property>
+                            junit.jupiter.execution.parallel.enabled = true
+                            junit.jupiter.execution.parallel.mode.default = concurrent
+                        </property>
                     </properties>
                     <argLine>
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
