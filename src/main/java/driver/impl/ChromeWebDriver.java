@@ -13,6 +13,8 @@ public class ChromeWebDriver implements IDriver {
     chromeOptions.addArguments("--enable-extensions");
     chromeOptions.addArguments("--homepage=about:blank");
     chromeOptions.addArguments("--ignore-certificate-errors");
+    chromeOptions.setCapability("browserName", "chrome");
+    chromeOptions.setCapability("browserVersion", "123.0");
     return chromeOptions;
   }
 }
