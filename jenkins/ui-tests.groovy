@@ -46,7 +46,7 @@ pipeline {
                     writeFile file: 'docker_script.sh', text: """
                         #!/bin/bash
                         rm -rf ${DOCKER_HOME}/allure-results/* ${DOCKER_HOME}/allure-report/*
-                        mvn clean test -D=chrome -DremoteUrl=${REMOTE_URL}K
+                        mvn clean test -D=chrome -DremoteUrl=${REMOTE_URL}
                         allure generate ${DOCKER_HOME}/allure-results --clean -o ${DOCKER_HOME}/allure-report
                     """
 
