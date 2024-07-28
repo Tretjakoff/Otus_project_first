@@ -45,28 +45,19 @@ pipeline {
                     // Создание временного скрипта с командами
                     writeFile file: 'docker_script.sh', text: """
                         #!/bin/bash
-                        apt-get update
-                        apt-get install -y docker.io
-                        service docker start
                         rm -rf ${DOCKER_HOME}/allure-results/* ${DOCKER_HOME}/allure-report/*
                         mvn clean test -Dtest=RunnerTest -DbaseUrl=${BASE_URL} -DbrowserName=${BROWSER_NAME} -DbrowserVersion=${BROWSER_VERSION} -DremoteUrl=${REMOTE_URL} -DisRemote=${IS_REMOTE} -Dmaven.repo.local=${MAVEN_LOCAL_REPO}
                         allure generate ${DOCKER_HOME}/allure-results --clean -o ${DOCKER_HOME}/allure-report
                     """
 
-                    // Запуск Docker контейнера и выполнение временного скрипта внутри него
+                    // Запуск временного скрипта внутри текущего контейнера
                     sh """
                         chmod +x docker_script.sh
-                        CONTAINER_ID=\$(docker run --privileged -d -v "\$(pwd)":${DOCKER_HOME} -w ${DOCKER_HOME} localhost:5005/maven:latest /bin/bash -c "./docker_script.sh")
+                        ./docker_script.sh
 
-                        # Просмотр логов выполнения тестов
-                        docker logs -f \$CONTAINER_ID
-
-                        # Копирование содержимого результатов и отчетов из контейнера
-                        docker cp \$CONTAINER_ID:${DOCKER_HOME}/allure-results/. ${ALLURE_RESULTS}/
-                        docker cp \$CONTAINER_ID:${DOCKER_HOME}/allure-report/. ${ALLURE_REPORT}/
-
-                        docker stop \$CONTAINER_ID || true
-                        docker rm \$CONTAINER_ID || true
+                        # Копирование содержимого результатов и отчетов
+                        cp -r ${DOCKER_HOME}/allure-results/. ${ALLURE_RESULTS}/
+                        cp -r ${DOCKER_HOME}/allure-report/. ${ALLURE_REPORT}/
                     """
                 }
             }
