@@ -46,7 +46,7 @@ pipeline {
                     writeFile file: 'docker_script.sh', text: """
                         #!/bin/bash
                         rm -rf ${DOCKER_HOME}/allure-results/* ${DOCKER_HOME}/allure-report/*
-                        mvn clean test -X -Dtest=RunnerTest -DbaseUrl=${BASE_URL} -DbrowserName=${BROWSER_NAME} -DbrowserVersion=${BROWSER_VERSION} -DremoteUrl=${REMOTE_URL} -DisRemote=${IS_REMOTE} -Dmaven.repo.local=${MAVEN_LOCAL_REPO}
+                        mvn clean test -X -D=chrome -DremoteUrl=${REMOTE_URL} -Dmaven.repo.local=${MAVEN_LOCAL_REPO}
                         allure generate ${DOCKER_HOME}/allure-results --clean -o ${DOCKER_HOME}/allure-report
                     """
 
