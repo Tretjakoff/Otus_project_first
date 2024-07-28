@@ -56,7 +56,7 @@ pipeline {
                     // Запуск Docker контейнера и выполнение временного скрипта внутри него
                     sh """
                         chmod +x docker_script.sh
-                        CONTAINER_ID=\$(docker run --privileged -d -v "\$(pwd)":${DOCKER_HOME} -w ${DOCKER_HOME} ubuntu:latest /bin/bash -c "./docker_script.sh")
+                        CONTAINER_ID=\$(docker run --privileged -d -v "\$(pwd)":${DOCKER_HOME} -w ${DOCKER_HOME} localhost:5005/maven:latest /bin/bash -c "./docker_script.sh")
 
                         # Просмотр логов выполнения тестов
                         docker logs -f \$CONTAINER_ID
