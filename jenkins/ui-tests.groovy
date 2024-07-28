@@ -9,7 +9,7 @@ pipeline {
         BUILD_NUMBER = "${env.BUILD_NUMBER}"
         JOB_NAME = "${env.JOB_NAME}"
         DOCKER_HOME = "/home/ubuntu/ui-test"
-        REMOTE_URL = "http://selenoid_tretyakov:4444/wd/hub/"
+        REMOTE_URL = "http://selenoid_tretyakov:4444/wd/hub"
         IS_REMOTE = "true"
     }
     parameters {
