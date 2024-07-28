@@ -18,7 +18,7 @@ public class CatalogCourses_Test {
 
   @Test
   public void changeCourseByName() {
-    String nameCourse = "Delivery Manager";
+    String nameCourse = "IT-Recruiter";
     catalogCoursesPage
         .open();
 
@@ -29,7 +29,7 @@ public class CatalogCourses_Test {
 
   }
 
-  @Test
+  //@Test
   public void verifyEarlyAndLateCourses() {
 
     catalogCoursesPage

@@ -10,8 +10,8 @@
 
     <properties>
         <webdriver.manager.version>5.5.3</webdriver.manager.version>
-        <selenium.java.version>4.19.0</selenium.java.version>
-        <junit.version>5.10.2</junit.version>
+        <selenium.java.version>4.23.0</selenium.java.version>
+        <junit.version>5.10.3</junit.version>
         <faker.version>1.0.2</faker.version>
 
         <forkCount>1</forkCount>
@@ -147,10 +147,10 @@
                             <name>listener</name>
                             <value>io.qameta.allure.junit5.AllureJunit5</value>
                         </property>
-                        <property>
-                            junit.jupiter.execution.parallel.enabled = true
-                            junit.jupiter.execution.parallel.mode.default = concurrent
-                        </property>
+<!--                        <property>-->
+<!--                            junit.jupiter.execution.parallel.enabled = true-->
+<!--                            junit.jupiter.execution.parallel.mode.default = concurrent-->
+<!--                        </property>-->
                     </properties>
                     <argLine>
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
