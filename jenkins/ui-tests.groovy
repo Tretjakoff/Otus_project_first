@@ -9,6 +9,8 @@ pipeline {
         BUILD_NUMBER = "${env.BUILD_NUMBER}"
         JOB_NAME = "${env.JOB_NAME}"
         DOCKER_HOME = "/home/ubuntu/ui-test"
+        REMOTE_URL = "http://127.0.0.1:8090/wd/hub"
+        IS_REMOTE = "true"
     }
     parameters {
         text(name: 'YAML_CONFIG', defaultValue: '', description: 'YAML Configuration')
@@ -43,15 +45,18 @@ pipeline {
                     // Создание временного скрипта с командами
                     writeFile file: 'docker_script.sh', text: """
                         #!/bin/bash
+                        apt-get update
+                        apt-get install -y docker.io
+                        service docker start
                         rm -rf ${DOCKER_HOME}/allure-results/* ${DOCKER_HOME}/allure-report/*
-                        mvn clean test -Dtest=RunnerTest -DbaseUrl=${BASE_URL} -DbrowserName=${BROWSER_NAME} -DbrowserVersion=${BROWSER_VERSION} -Dmaven.repo.local=${MAVEN_LOCAL_REPO}
+                        mvn clean test -Dtest=RunnerTest -DbaseUrl=${BASE_URL} -DbrowserName=${BROWSER_NAME} -DbrowserVersion=${BROWSER_VERSION} -DremoteUrl=${REMOTE_URL} -DisRemote=${IS_REMOTE} -Dmaven.repo.local=${MAVEN_LOCAL_REPO}
                         allure generate ${DOCKER_HOME}/allure-results --clean -o ${DOCKER_HOME}/allure-report
                     """
 
                     // Запуск Docker контейнера и выполнение временного скрипта внутри него
                     sh """
                         chmod +x docker_script.sh
-                        CONTAINER_ID=\$(docker run --privileged -it localhost:5005/maven:latest /bin/bash -c "./docker_script.sh")
+                        CONTAINER_ID=\$(docker run --privileged -d -v "\$(pwd)":${DOCKER_HOME} -w ${DOCKER_HOME} ubuntu:latest /bin/bash -c "./docker_script.sh")
 
                         # Просмотр логов выполнения тестов
                         docker logs -f \$CONTAINER_ID
