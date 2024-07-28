@@ -9,7 +9,7 @@ import java.net.URL;
 
 public class DriverFactory implements IDriverFactory {
 
-  private String remoteUrl = System.getProperty("remoteUrl", "http://localhost:85/wd/hub");
+  private String remoteUrl = System.getProperty("remoteUrl", "http://localhost:4444/wd/hub");
   private String chromeVersion = System.getProperty("chromeVersion", "123.0");
 
   public WebDriver getDriver() {
