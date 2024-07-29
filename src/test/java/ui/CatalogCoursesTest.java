@@ -18,7 +18,7 @@ public class CatalogCoursesTest {
 
   @Test
   public void changeCourseByName() {
-    String nameCourse = "IT-Recruiter";
+    String nameCourse = "Spark Developer";
     catalogCoursesPage
         .open();
 
