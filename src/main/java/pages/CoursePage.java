@@ -4,6 +4,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 import annotations.PageValidation;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -14,6 +15,7 @@ public class CoursePage extends AnyPageAbs<CoursePage> {
     super(driver);
   }
 
+  @Step("Проверяем отображение страницы")
   public CoursePage pageShouldBeOpened(String name) {
     String locator = String.format(markerLocator, name);
 

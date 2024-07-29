@@ -3,6 +3,7 @@ package components;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 import annotations.Component;
+import io.qameta.allure.Step;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.openqa.selenium.By;
@@ -25,6 +26,7 @@ public class BlockCatalogCourses extends AnyComponentAbs<BlockCatalogCourses> {
     super(driver);
   }
 
+  @Step("Выбираем курс: {name}")
   public CoursePage clickCourseByName(String name) {
     Optional<WebElement> elementBlockCourse = getComponentEntity().findElements(By.xpath(".//a[./div]")).stream()
         .filter(webElement ->

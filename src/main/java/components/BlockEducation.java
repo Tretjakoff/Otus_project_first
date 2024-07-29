@@ -1,6 +1,7 @@
 package components;
 
 import annotations.Component;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,6 +16,7 @@ public class BlockEducation extends AnyComponentAbs<BlockEducation> {
     super(driver);
   }
 
+  @Step("Возвращаем категорию курсов: {name}")
   public CatalogCoursesPage clickRandomCategory(String name) {
     getComponentEntity()
         .findElement(By.xpath(String.format(".//div[./*[text()='Все курсы']]//a[text()='%s']", name)))
@@ -23,6 +25,7 @@ public class BlockEducation extends AnyComponentAbs<BlockEducation> {
     return new CatalogCoursesPage(driver);
   }
 
+  @Step("Возвращаем рандомную категорию курсов")
   public String getRandomCategoryName() {
     List<WebElement> listWebElements = getComponentEntity()
         .findElements(By.xpath(".//div[./*[text()='Все курсы']]//a[not(contains(@href, '/subscription')) and "

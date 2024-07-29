@@ -3,6 +3,7 @@ package ui;
 import com.google.inject.Inject;
 import components.BlockCatalogCourses;
 import extensions.UIExtension;
+import io.qameta.allure.Description;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import pages.CatalogCoursesPage;
@@ -17,6 +18,7 @@ public class CatalogCoursesTest {
   private BlockCatalogCourses blockCatalogCourses;
 
   @Test
+  @Description("Выбор курса из каталога")
   public void changeCourseByName() {
     String nameCourse = "Spark Developer";
     catalogCoursesPage

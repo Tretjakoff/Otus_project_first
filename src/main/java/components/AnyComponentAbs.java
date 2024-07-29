@@ -2,6 +2,7 @@ package components;
 
 import actions.CommonActions;
 import annotations.Component;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -17,6 +18,7 @@ public abstract class AnyComponentAbs<T> extends CommonActions<T> {
 
   protected String title = "";
 
+  @Step("Возвращаем заголовок")
   public T setTitle(String title) {
     this.title = title;
 

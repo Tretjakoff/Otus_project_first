@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import components.BlockEducation;
 import components.BlockHeader;
 import extensions.UIExtension;
+import io.qameta.allure.Description;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import pages.MainPage;
@@ -21,6 +22,7 @@ public class OtusMainTest {
   private BlockEducation blockEducation;
 
   @Test
+  @Description("Выбор категории")
   public void categoryFromEducation() {
 
     mainPage
