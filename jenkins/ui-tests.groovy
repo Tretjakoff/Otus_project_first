@@ -73,7 +73,7 @@ pipeline {
 
                 // Подготовка и отправка сообщения в Telegram
                 def buildStatus = currentBuild.currentResult
-                env.MESSAGE = "${env.JOB_NAME} ${buildStatus.toLowerCase()} for build #${env.BUILD_NUMBER}\n****************************************"
+                env.MESSAGE = "${env.JOB_NAME} ${buildStatus.toLowerCase()} for build #${env.BUILD_NUMBER}\n*************************************"
                 def allureReportUrl = "${env.BUILD_URL}allure"
                 try {
                     def summaryFile = "${ALLURE_REPORT}/widgets/summary.json"
