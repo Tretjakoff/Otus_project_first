@@ -12,7 +12,7 @@ pipeline {
         REMOTE_URL = "http://172.26.0.2:4444/wd/hub"
         IS_REMOTE = "true"
         TOKEN = "6537216971:AAE6M7PU0BF1Reie_O9eFYcSP7bB2wEJTgc"
-        CHAT_ID = "1002046571003"
+        CHAT_ID = "-1002046571003"
     }
     parameters {
         text(name: 'YAML_CONFIG', defaultValue: '', description: 'YAML Configuration')
